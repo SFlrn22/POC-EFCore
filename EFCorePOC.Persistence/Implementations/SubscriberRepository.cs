@@ -13,18 +13,18 @@ public class SubscriberRepository(ModelContext context) : ISubscriberRepository
         {
             foreach (var filter in model.Filters)
             {
-                query = filter.Relation.ToLower() switch
+                query = filter.Value.Relation.ToLower() switch
                 {
-                    "equals" => filter.FilterName.ToLower() switch
+                    "equals" => filter.Key.ToLower() switch
                     {
-                        "name" => query.Where(q => q.Name.Equals(filter.FilterValue)),
-                        "subscribed" => query.Where(q => q.Subscribed.Equals(filter.FilterValue)),
+                        "name" => query.Where(q => q.Name.Equals(filter.Value.FilterValue)),
+                        "subscribed" => query.Where(q => q.Subscribed.Equals(filter.Value.FilterValue)),
                         _ => throw new ArgumentException("Invalid filter name.")
                     },
-                    "contains" => filter.FilterName.ToLower() switch
+                    "contains" => filter.Key.ToLower() switch
                     {
-                        "name" => query.Where(q => q.Name.Contains(filter.FilterValue)),
-                        "subscribed" => query.Where(q => q.Subscribed.Contains(filter.FilterValue)),
+                        "name" => query.Where(q => q.Name.Contains(filter.Value.FilterValue)),
+                        "subscribed" => query.Where(q => q.Subscribed.Contains(filter.Value.FilterValue)),
                         _ => throw new ArgumentException("Invalid filter name.")
                     },
                     _ => throw new ArgumentException("Invalid relation type.")

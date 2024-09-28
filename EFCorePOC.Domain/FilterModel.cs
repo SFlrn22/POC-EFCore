@@ -4,7 +4,7 @@ public class FilterModel
 {
     public int PageNumber { get; set; }
     public int PageSize { get; set; }
-    public IEnumerable<Filter>? Filters { get; set; } = [];
+    public Dictionary<string, Filter> Filters { get; set; } = new Dictionary<string, Filter>();
 }
 
 public class Filter
